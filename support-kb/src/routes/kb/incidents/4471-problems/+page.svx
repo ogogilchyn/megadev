@@ -4,7 +4,7 @@ title: '#4471 · four problems, not one'
 owner: support desk
 status: open
 reviewed: 2026-11-23
-signature: ogogilchyn
+signature: 'v1.eyJzdWIiOiI2MjAwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTU1MzQxNDcsImV4cCI6MTc5NTYyMDU0N30.SJeKhNEm5dAshswXB8KkQE6J4kMQMH4-R6nMlKsYvtw'
 ---
 
 <script>
