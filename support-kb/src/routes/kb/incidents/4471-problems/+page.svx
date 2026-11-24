@@ -1,9 +1,9 @@
 ---
 layout: runbook
-title: '#4471 · four problems, not one'
+title: '#4471 · two causes, not one'
 owner: support desk
 status: open
-reviewed: 2026-11-23
+reviewed: 2026-11-24
 signature: 'v1.eyJzdWIiOiI2MjAwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTU1MzQxNDcsImV4cCI6MTc5NTYyMDU0N30.SJeKhNEm5dAshswXB8KkQE6J4kMQMH4-R6nMlKsYvtw'
 ---
 
@@ -13,34 +13,26 @@ signature: 'v1.eyJzdWIiOiI2MjAwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpY
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-#4471 says "dates parse mm/dd in eu locales" and is marked known with one fix queued. The reports under it are not one bug. Merging on subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) put four problems under one ticket. Each gets its own ticket in the public repo.
+#4471 says "dates parse mm/dd in eu locales" and is marked known with one fix queued. The reports under it come from two causes, and the desk's own code (`causes.ts`) tells them apart by tenant locale and booking form. Merging on subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) put both under one ticket.
 
 <ProblemTable />
 
 <Callout>
-The counts above come from the reports in `reports-4471.json`, one report counted once. The export has repeated rows from overlapping pages; they are removed first.
+The counts come from the reports in `reports-4471.json`, one report counted once. The export has repeated rows from overlapping pages; they are removed first.
 </Callout>
 
-## 1. Day and month swapped by the shared parser
+## 1. Parser reads day-first dates month first (cause: parser)
 
-Day-first tenants get their dates read month first. "Booked for 2 December. The invite says 12 February." This is the bulk of the ticket and the one the queued fix is meant for. Reports from every day-first tenant land here, through the app, email and forms, except the form case below.
+Day-first tenants get their dates read month first. "Booked for 2 December. The invite says 12 February." This is most of the ticket, and the one the queued fix is meant for.
 
-## 2. Booking-v3 form hint is wrong for day-first tenants
+Some reports under this cause do not fit a month-day swap: a date one day off ("Invite says Tuesday 12 May. Calendar says Monday 11 May."), a meeting that landed on two days for two time zones, and one invite that arrived before the booking existed. The desk files them here by tenant, as `causes.ts` does. They need their own look before the fix is called complete.
 
-The booking-v3 form prints `MM/DD/YYYY` under its date field. Tenants whose people write the day first (copper.studio, alder.physio, pale.harbour) type what the hint asks, month first, and the form reads it the tenant's way. The parser fix does not touch this: the form has its own hint. The desk's `causes.ts` already calls this a separate cause, `hint`.
+## 2. Booking-v3 form hint is wrong for day-first tenants (cause: hint)
 
-## 3. Dates one day off, not swapped
+The booking-v3 form prints `MM/DD/YYYY` under its date field. Tenants whose people write the day first (copper.studio, alder.physio, pale.harbour) type what the hint asks, month first, and the form reads it the tenant's way. The parser fix does not touch this: the form has its own hint.
 
-The date moves by one day, which a swap cannot produce. Examples: "Invite says Tuesday 12 May. Calendar says Monday 11 May." and "Every booking in June is one day off. Only June." One report from Lisbon and Toronto describes the same meeting landing on two days, which suggests a time zone issue. Cause not yet known.
-
-## 4. Invite arrives before the booking exists
-
-"The invite arrived before I made the booking. I would like to know how." One report, not explained by any of the above. Needs a look at the invite job's timestamps before it can be called a bug or noise.
-
-## What this changes
-
-`desk-notes.json` lists five reports as one-day moves. Four are in problem 3. The fifth (R-41236) is problem 4.
-
-Do not close #4471 on the strength of the parser fix. It fixes problem 1 only.
+<Callout>
+Do not close #4471 on the strength of the parser fix. It fixes cause 1 only, and cause 2 still stands.
+</Callout>
 
 <RenderStamp {signature} />
