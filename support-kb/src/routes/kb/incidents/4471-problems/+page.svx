@@ -13,7 +13,7 @@ signature: 'v1.eyJzdWIiOiI2MjAwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpY
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-#4471 says "dates parse mm/dd in eu locales" and is marked known with one fix queued. The reports under it come from two causes, and the desk's own code (`causes.ts`) tells them apart by tenant locale and booking form. Merging on subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) put both under one ticket.
+#4471 says "dates parse mm/dd in eu locales" and is marked known with one fix queued. The desk closed #4471 on 05 Oct. The reports under it come from two causes, and the desk's own code (`causes.ts`) tells them apart by tenant locale and booking form. Merging on subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) put both under one ticket.
 
 <ProblemTable />
 
@@ -32,7 +32,7 @@ Some reports under this cause do not fit a month-day swap: a date one day off ("
 The booking-v3 form prints `MM/DD/YYYY` under its date field. Tenants whose people write the day first (copper.studio, alder.physio, pale.harbour) type what the hint asks, month first, and the form reads it the tenant's way. The parser fix does not touch this: the form has its own hint.
 
 <Callout>
-Do not close #4471 on the strength of the parser fix. It fixes cause 1 only, and cause 2 still stands.
+The desk closed #4471 on 05 Oct. The parser fix covers cause 1 only. Cause 2 still stands, so it needs its own fix before this kb page can say the form is correct.
 </Callout>
 
 <RenderStamp {signature} />

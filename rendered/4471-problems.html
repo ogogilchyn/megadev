@@ -19,7 +19,7 @@ footer{margin-top:3rem;color:#6b6a66;font-size:.8rem;border-top:1px solid #e3e0d
 <p class="meta"><span>owner <b>support desk</b></span> · <span>open</span> · <span>reviewed 2026-11-24 · 0 days ago</span></p>
 </header>
 <main>
-<p>#4471 says "dates parse mm/dd in eu locales" and is marked known with one fix queued. The reports under it come from two causes, and the desk's own code (<code>causes.ts</code>) tells them apart by tenant locale and booking form. Merging on subject line (<a href="/kb/decisions/0001-dedupe-by-subject">decision 0001</a>) put both under one ticket.</p>
+<p>#4471 says "dates parse mm/dd in eu locales" and is marked known with one fix queued. The desk closed #4471 on 05 Oct. The reports under it come from two causes, and the desk's own code (<code>causes.ts</code>) tells them apart by tenant locale and booking form. Merging on subject line (<a href="/kb/decisions/0001-dedupe-by-subject">decision 0001</a>) put both under one ticket.</p>
 <p><strong>412</strong> unique reports merged into #4471.</p>
 <table><thead><tr><th>problem</th><th>reports</th></tr></thead><tbody>
 <tr><td>Parser reads day-first dates month first (cause: parser)</td><td>379</td></tr>
@@ -31,7 +31,7 @@ footer{margin-top:3rem;color:#6b6a66;font-size:.8rem;border-top:1px solid #e3e0d
 <p>Some reports under this cause do not fit a month-day swap: a date one day off ("Invite says Tuesday 12 May. Calendar says Monday 11 May."), a meeting that landed on two days for two time zones, and one invite that arrived before the booking existed. The desk files them here by tenant, as <code>causes.ts</code> does. They need their own look before the fix is called complete.</p>
 <h2>2. Booking-v3 form hint is wrong for day-first tenants (cause: hint)</h2>
 <p>The booking-v3 form prints <code>MM/DD/YYYY</code> under its date field. Tenants whose people write the day first (copper.studio, alder.physio, pale.harbour) type what the hint asks, month first, and the form reads it the tenant's way. The parser fix does not touch this: the form has its own hint.</p>
-<aside>Do not close #4471 on the strength of the parser fix. It fixes cause 1 only, and cause 2 still stands.</aside>
+<aside>The desk closed #4471 on 05 Oct. The parser fix covers cause 1 only. Cause 2 still stands, so it needs its own fix before this kb page can say the form is correct.</aside>
 <p class="stamp">desk ref <b>DR-CM2Z-76M6</b></p>
 </main>
 <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
